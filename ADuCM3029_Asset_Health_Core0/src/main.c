@@ -82,15 +82,15 @@ adxl372_init_param adxl372_default_init_param = {
 	ADXL372_WUR_52ms,        // wur
 	ADXL372_LOOPED,        // act_proc_mode
 	ADXL372_INSTANT_ON_LOW_TH,    // th_mode
-	{30, true, true},        // activity_th
+	{100, false, true},        // activity_th
 	{0, false, false},        // activity2_th
-	{30, true, true},        // inactivity_th
-	0,                // activity_time
-	0,                // inactivity_time
+	{90, false, true},        // inactivity_th
+	2,                // activity_time
+	1,                // inactivity_time
 	ADXL372_FILTER_SETTLE_16,    // filter_settle
-	{ADXL372_FIFO_OLD_SAVED, ADXL372_XYZ_PEAK_FIFO, 20},    // fifo_config
+	{ADXL372_FIFO_STREAMED, ADXL372_XYZ_PEAK_FIFO, 20},    // fifo_config
 	/* data_rdy, fifo_rdy, fifo_full, fifo_ovr, inactivity, activity, awake, low_operation */
-	{false, false, false, false, false, false, true, true},
+	{false, false, false, false, true, false, false, true},
 	{false, false, false, false, false, false, false, false},
 	ADXL372_FULL_BW_MEASUREMENT,    // op_mode
 };
@@ -187,7 +187,7 @@ void adi_DataExchange_Callback(void *pParam, uint32_t Event, void *pData)
 
 int main(int argc, char *argv[])
 {
-	ADI_BLER_RESULT      eResult;
+	ADI_BLER_RESULT eResult;
 
 	uint32_t u32RTCTime;
 
@@ -212,7 +212,15 @@ int main(int argc, char *argv[])
 
 	adxl372_init(&adxl372, adxl372_default_init_param);
 	timer_sleep(16);
-	adxl372_set_op_mode(adxl372, ADXL372_INSTANT_ON);
+
+	/*Enable external clock*/
+//	adxl372_spi_reg_write(adxl372, ADXL372_TIMING, 0x82);
+
+	/* clear interrupt after initialization and turn on LPF*/
+	adxl372_spi_reg_write(adxl372, ADXL372_POWER_CTL, 0x1F);
+	timer_sleep(50);
+	adxl372_get_status(adxl372, &status1, &status2, &fifo_entries);
+	boInterruptFlag = false;
 
 	/* Initialize UART at 9600 baudrate */
 	UART_Init();
@@ -224,49 +232,50 @@ int main(int argc, char *argv[])
 	configure_ble_radio();
 
 	while(1) {
-		eResult = adi_ble_DispatchEvents(500);
-		DEBUG_RESULT("Error dispatching events to the callback.\r\n", eResult,
-			     ADI_BLER_SUCCESS);
-
-		if(gConnected) {
-			adi_ble_GetConnectionInfo(&connInfo); //get connection handle
-
-			if(reg_flag == 0)	{
-				/*Accelerometer Registration packet*/
-				timer_sleep(2000);
-#ifdef PEAK_ACCELERATION
-				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
-								sizeof(reg_pkt),(uint8_t*)&reg_pkt);
-				timer_sleep(10);
-				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
-								sizeof(name_pkt0),(uint8_t*)&name_pkt0);
-				timer_sleep(10);
-				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
-								sizeof(name_pkt1),(uint8_t*)&name_pkt1);
-				timer_sleep(10);
-				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
-								sizeof(name_pkt2),(uint8_t*)&name_pkt2);
-				timer_sleep(10);
-#else
-				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
-								sizeof(reg_pkt_full),(uint8_t*)&reg_pkt_full);
-				timer_sleep(10);
-				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
-								sizeof(name_pkt0_full),(uint8_t*)&name_pkt0_full);
-				timer_sleep(10);
-				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
-								sizeof(name_pkt1_full),(uint8_t*)&name_pkt1_full);
-				timer_sleep(10);
-				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
-								sizeof(name_pkt2_full),(uint8_t*)&name_pkt2_full);
-#endif
-			}
-		} else {
-			/* If disconnected, switch to advertising mode */
-			if(gGapMode != PERIPHERAL_MODE) {
-				SetAdvertisingMode();
-			}
-		}
+		/* BLE setup */
+//		eResult = adi_ble_DispatchEvents(500);
+//		DEBUG_RESULT("Error dispatching events to the callback.\r\n", eResult,
+//			     ADI_BLER_SUCCESS);
+//
+//		if(gConnected) {
+//			adi_ble_GetConnectionInfo(&connInfo); //get connection handle
+//
+//			if(reg_flag == 0)	{
+//				/*Accelerometer Registration packet*/
+//				timer_sleep(2000);
+//#ifdef PEAK_ACCELERATION
+//				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
+//								sizeof(reg_pkt),(uint8_t*)&reg_pkt);
+//				timer_sleep(10);
+//				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
+//								sizeof(name_pkt0),(uint8_t*)&name_pkt0);
+//				timer_sleep(10);
+//				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
+//								sizeof(name_pkt1),(uint8_t*)&name_pkt1);
+//				timer_sleep(10);
+//				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
+//								sizeof(name_pkt2),(uint8_t*)&name_pkt2);
+//				timer_sleep(10);
+//#else
+//				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
+//								sizeof(reg_pkt_full),(uint8_t*)&reg_pkt_full);
+//				timer_sleep(10);
+//				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
+//								sizeof(name_pkt0_full),(uint8_t*)&name_pkt0_full);
+//				timer_sleep(10);
+//				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
+//								sizeof(name_pkt1_full),(uint8_t*)&name_pkt1_full);
+//				timer_sleep(10);
+//				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
+//								sizeof(name_pkt2_full),(uint8_t*)&name_pkt2_full);
+//#endif
+//			}
+//		} else {
+//			/* If disconnected, switch to advertising mode */
+//			if(gGapMode != PERIPHERAL_MODE) {
+//				SetAdvertisingMode();
+//			}
+//		}
 
 		/* Measurement mode */
 		if (boInterruptFlag) {
@@ -274,11 +283,11 @@ int main(int argc, char *argv[])
 			timer_sleep (100);
 			adxl372_get_status(adxl372, &status1, &status2, &fifo_entries);
 			adxl372_get_highest_peak_data(adxl372, &max_peak);
-
-			adxl372_get_fifo_xyz_data(adxl372, fifo_samples, fifo_entries);
+//			adxl372_xyz_accel_data fifo_sample[1] = {{0,0,0},{0,0,0}};
+			adxl372_get_fifo_xyz_data(adxl372, &fifo_samples, fifo_entries);
 
 			/*Print data over UART*/
-			u32RTCTime = CURRENT_DATE_TIME + adi_GetRTCTime();
+//			u32RTCTime = CURRENT_DATE_TIME + adi_GetRTCTime();
 
 #ifdef PEAK_ACCELERATION
 			data_pkt.Sensor_Data1.fValue =
@@ -291,30 +300,33 @@ int main(int argc, char *argv[])
 			AppPrintf("x = % 5.2f G, y = % 5.2f G, z = % 5.2f G %d\n\r",
 				  data_pkt.Sensor_Data1.fValue,
 				  data_pkt.Sensor_Data2.fValue,
-				  data_pkt.Sensor_Data3.fValue, u32RTCTime);
+				  data_pkt.Sensor_Data3.fValue);
 #endif
-			if (gConnected) {
-				BleEvent = adi_radio_GetEvent();
+//			if (gConnected) {
+//				BleEvent = adi_radio_GetEvent();
+//
+//#ifdef PEAK_ACCELERATION
+//				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
+//								sizeof(data_pkt),(uint8_t*)&data_pkt);
+//				timer_sleep(10);
+//#else
+//
+//				send_fifo_data(fifo_samples, 40);
+//				adxl372_configure_fifo(adxl372,
+//						       ADXL372_FIFO_BYPASSED,
+//						       adxl372_default_init_param.fifo_config.fifo_format,
+//						       adxl372_default_init_param.fifo_config.fifo_samples);
+//#endif
+//			}
 
-#ifdef PEAK_ACCELERATION
-				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
-								sizeof(data_pkt),(uint8_t*)&data_pkt);
-				timer_sleep(10);
-#else
+			/*System workaround for Oldest saved mode */
+//			adxl372_configure_fifo(adxl372,
+//					       ADXL372_FIFO_OLD_SAVED,
+//					       adxl372_default_init_param.fifo_config.fifo_format,
+//					       adxl372_default_init_param.fifo_config.fifo_samples);
 
-				send_fifo_data(fifo_samples, 40);
-				adxl372_configure_fifo(adxl372,
-						       ADXL372_FIFO_BYPASSED,
-						       adxl372_default_init_param.fifo_config.fifo_format,
-						       adxl372_default_init_param.fifo_config.fifo_samples);
-#endif
-			}
-
-			adxl372_configure_fifo(adxl372,
-					       ADXL372_FIFO_OLD_SAVED,
-					       adxl372_default_init_param.fifo_config.fifo_format,
-					       adxl372_default_init_param.fifo_config.fifo_samples);
-			adxl372_set_op_mode(adxl372, ADXL372_INSTANT_ON);
+//			adxl372_set_op_mode(adxl372, ADXL372_STANDBY);
+//			adxl372_set_op_mode(adxl372, ADXL372_FULL_BW_MEASUREMENT);
 
 			boInterruptFlag = false;
 			LowPwrExitFlag = 0;
