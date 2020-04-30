@@ -82,13 +82,13 @@ adxl372_init_param adxl372_default_init_param = {
 	ADXL372_WUR_52ms,        // wur
 	ADXL372_LOOPED,        // act_proc_mode
 	ADXL372_INSTANT_ON_LOW_TH,    // th_mode
-	{100, false, true},        // activity_th
+	{60, false, true},        // activity_th
 	{0, false, false},        // activity2_th
-	{90, false, true},        // inactivity_th
-	2,                // activity_time
-	1,                // inactivity_time
+	{40, false, true},        // inactivity_th
+	1,                // activity_time
+	0,                // inactivity_time
 	ADXL372_FILTER_SETTLE_16,    // filter_settle
-	{ADXL372_FIFO_STREAMED, ADXL372_XYZ_PEAK_FIFO, 20},    // fifo_config
+	{ADXL372_FIFO_STREAMED, ADXL372_XYZ_PEAK_FIFO, 80},    // fifo_config
 	/* data_rdy, fifo_rdy, fifo_full, fifo_ovr, inactivity, activity, awake, low_operation */
 	{false, false, false, false, true, false, false, true},
 	{false, false, false, false, false, false, false, false},
