@@ -82,9 +82,9 @@ adxl372_init_param adxl372_default_init_param = {
 	ADXL372_WUR_52ms,        // wur
 	ADXL372_LOOPED,        // act_proc_mode
 	ADXL372_INSTANT_ON_LOW_TH,    // th_mode
-	{60, false, true},        // activity_th
+	{50, false, true},        // activity_th
 	{0, false, false},        // activity2_th
-	{40, false, true},        // inactivity_th
+	{30, false, true},        // inactivity_th
 	1,                // activity_time
 	0,                // inactivity_time
 	ADXL372_FILTER_SETTLE_16,    // filter_settle
@@ -300,7 +300,10 @@ int main(int argc, char *argv[])
 			AppPrintf("x = % 5.2f G, y = % 5.2f G, z = % 5.2f G %d\n\r",
 				  data_pkt.Sensor_Data1.fValue,
 				  data_pkt.Sensor_Data2.fValue,
-				  data_pkt.Sensor_Data3.fValue);
+				  data_pkt.Sensor_Data3.fValue,
+				  fifo_entries);
+
+
 #endif
 //			if (gConnected) {
 //				BleEvent = adi_radio_GetEvent();
