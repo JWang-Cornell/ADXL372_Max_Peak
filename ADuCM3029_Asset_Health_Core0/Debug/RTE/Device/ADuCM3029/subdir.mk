@@ -54,70 +54,70 @@ C_DEPS += \
 RTE/Device/ADuCM3029/adi_dma.o: C:/Analog\ Devices/CrossCore\ Embedded\ Studio\ 2.8.0/ARM/packs/AnalogDevices/ADuCM302x_DFP/3.2.0/Source/drivers/dma/adi_dma.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: CrossCore GCC ARM Embedded C Compiler'
-	arm-none-eabi-gcc -Og -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_dma.d" -MT"RTE/Device/ADuCM3029/adi_dma.d" -o  "$@" "$<"
+	arm-none-eabi-gcc -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_dma.d" -MT"RTE/Device/ADuCM3029/adi_dma.d" -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 RTE/Device/ADuCM3029/adi_gpio.o: C:/Analog\ Devices/CrossCore\ Embedded\ Studio\ 2.8.0/ARM/packs/AnalogDevices/ADuCM302x_DFP/3.2.0/Source/drivers/gpio/adi_gpio.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: CrossCore GCC ARM Embedded C Compiler'
-	arm-none-eabi-gcc -Og -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_gpio.d" -MT"RTE/Device/ADuCM3029/adi_gpio.d" -o  "$@" "$<"
+	arm-none-eabi-gcc -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_gpio.d" -MT"RTE/Device/ADuCM3029/adi_gpio.d" -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 RTE/Device/ADuCM3029/adi_pwr.o: C:/Analog\ Devices/CrossCore\ Embedded\ Studio\ 2.8.0/ARM/packs/AnalogDevices/ADuCM302x_DFP/3.2.0/Source/drivers/pwr/adi_pwr.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: CrossCore GCC ARM Embedded C Compiler'
-	arm-none-eabi-gcc -Og -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_pwr.d" -MT"RTE/Device/ADuCM3029/adi_pwr.d" -o  "$@" "$<"
+	arm-none-eabi-gcc -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_pwr.d" -MT"RTE/Device/ADuCM3029/adi_pwr.d" -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 RTE/Device/ADuCM3029/adi_rtc.o: C:/Analog\ Devices/CrossCore\ Embedded\ Studio\ 2.8.0/ARM/packs/AnalogDevices/ADuCM302x_DFP/3.2.0/Source/drivers/rtc/adi_rtc.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: CrossCore GCC ARM Embedded C Compiler'
-	arm-none-eabi-gcc -Og -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_rtc.d" -MT"RTE/Device/ADuCM3029/adi_rtc.d" -o  "$@" "$<"
+	arm-none-eabi-gcc -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_rtc.d" -MT"RTE/Device/ADuCM3029/adi_rtc.d" -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 RTE/Device/ADuCM3029/adi_spi.o: C:/Analog\ Devices/CrossCore\ Embedded\ Studio\ 2.8.0/ARM/packs/AnalogDevices/ADuCM302x_DFP/3.2.0/Source/drivers/spi/adi_spi.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: CrossCore GCC ARM Embedded C Compiler'
-	arm-none-eabi-gcc -Og -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_spi.d" -MT"RTE/Device/ADuCM3029/adi_spi.d" -o  "$@" "$<"
+	arm-none-eabi-gcc -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_spi.d" -MT"RTE/Device/ADuCM3029/adi_spi.d" -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 RTE/Device/ADuCM3029/adi_tmr.o: C:/Analog\ Devices/CrossCore\ Embedded\ Studio\ 2.8.0/ARM/packs/AnalogDevices/ADuCM302x_DFP/3.2.0/Source/drivers/tmr/adi_tmr.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: CrossCore GCC ARM Embedded C Compiler'
-	arm-none-eabi-gcc -Og -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_tmr.d" -MT"RTE/Device/ADuCM3029/adi_tmr.d" -o  "$@" "$<"
+	arm-none-eabi-gcc -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_tmr.d" -MT"RTE/Device/ADuCM3029/adi_tmr.d" -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 RTE/Device/ADuCM3029/adi_uart.o: C:/Analog\ Devices/CrossCore\ Embedded\ Studio\ 2.8.0/ARM/packs/AnalogDevices/ADuCM302x_DFP/3.2.0/Source/drivers/uart/adi_uart.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: CrossCore GCC ARM Embedded C Compiler'
-	arm-none-eabi-gcc -Og -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_uart.d" -MT"RTE/Device/ADuCM3029/adi_uart.d" -o  "$@" "$<"
+	arm-none-eabi-gcc -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_uart.d" -MT"RTE/Device/ADuCM3029/adi_uart.d" -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 RTE/Device/ADuCM3029/adi_wdt.o: C:/Analog\ Devices/CrossCore\ Embedded\ Studio\ 2.8.0/ARM/packs/AnalogDevices/ADuCM302x_DFP/3.2.0/Source/drivers/wdt/adi_wdt.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: CrossCore GCC ARM Embedded C Compiler'
-	arm-none-eabi-gcc -Og -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_wdt.d" -MT"RTE/Device/ADuCM3029/adi_wdt.d" -o  "$@" "$<"
+	arm-none-eabi-gcc -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_wdt.d" -MT"RTE/Device/ADuCM3029/adi_wdt.d" -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 RTE/Device/ADuCM3029/adi_xint.o: C:/Analog\ Devices/CrossCore\ Embedded\ Studio\ 2.8.0/ARM/packs/AnalogDevices/ADuCM302x_DFP/3.2.0/Source/drivers/xint/adi_xint.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: CrossCore GCC ARM Embedded C Compiler'
-	arm-none-eabi-gcc -Og -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_xint.d" -MT"RTE/Device/ADuCM3029/adi_xint.d" -o  "$@" "$<"
+	arm-none-eabi-gcc -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/adi_xint.d" -MT"RTE/Device/ADuCM3029/adi_xint.d" -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 RTE/Device/ADuCM3029/common.o: C:/Analog\ Devices/CrossCore\ Embedded\ Studio\ 2.8.0/ARM/packs/AnalogDevices/ADuCM302x_DFP/3.2.0/Source/common.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: CrossCore GCC ARM Embedded C Compiler'
-	arm-none-eabi-gcc -Og -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/common.d" -MT"RTE/Device/ADuCM3029/common.d" -o  "$@" "$<"
+	arm-none-eabi-gcc -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"RTE/Device/ADuCM3029/common.d" -MT"RTE/Device/ADuCM3029/common.d" -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
@@ -131,7 +131,7 @@ RTE/Device/ADuCM3029/%.o: ../RTE/Device/ADuCM3029/%.S
 RTE/Device/ADuCM3029/%.o: ../RTE/Device/ADuCM3029/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: CrossCore GCC ARM Embedded C Compiler'
-	arm-none-eabi-gcc -Og -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o  "$@" "$<"
+	arm-none-eabi-gcc -g -gdwarf-2 -ffunction-sections -fdata-sections -DCORE0 -D_DEBUG -DEVAL_ADICUP3029 -D_RTE_ -D__ADUCM3029__ -D__SILICON_REVISION__=0x100 @includes-4b29d3a71f493b1deff88665b3429812.txt -Wall -c -mcpu=cortex-m3 -mthumb -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o  "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

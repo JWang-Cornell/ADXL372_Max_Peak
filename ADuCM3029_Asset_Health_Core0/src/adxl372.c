@@ -88,7 +88,7 @@ int32_t adxl372_spi_reg_read_multiple(adxl372_dev *dev,
 				      uint8_t *reg_data,
 				      uint16_t count)
 {
-	uint8_t buf[1024];
+	uint8_t buf[1024] = {0};
 	uint16_t i;
 	int32_t ret;
 
@@ -603,7 +603,7 @@ int32_t adxl372_get_fifo_xyz_data(adxl372_dev *dev,
 				  adxl372_xyz_accel_data *samples,
 				  uint16_t cnt)
 {
-	uint8_t buf[1024];
+	uint8_t buf[1024] = {0};
 	uint16_t i;
 	int32_t ret;
 

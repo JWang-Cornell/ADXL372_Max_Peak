@@ -126,7 +126,7 @@ int32_t spi_remove(spi_desc *desc)
  */
 int32_t spi_write_and_read(spi_desc *desc,
 			   uint8_t *data,
-			   uint8_t bytes_number)
+			   uint16_t bytes_number)
 {
 	ADI_SPI_RESULT eResult = ADI_SPI_SUCCESS;  /* assume the best */
 	ADI_SPI_TRANSCEIVER  transceive;
@@ -143,7 +143,7 @@ int32_t spi_write_and_read(spi_desc *desc,
 	transceive.nTxIncrement = true;
 	transceive.nRxIncrement = true;
 
-	transceive.bDMA = false;
+	transceive.bDMA = true;
 	transceive.bRD_CTL = false;
 
 	//eResult = adi_spi_MasterReadWrite(hSPI0MasterDev, &transceive);

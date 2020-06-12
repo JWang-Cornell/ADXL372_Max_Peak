@@ -62,7 +62,7 @@ uint8_t ui8Status2, ui8Status;
 bool boInterruptFlag = false;
 uint32_t LowPwrExitFlag;
 
-static bool               gConnected, reg_flag;
+static bool  gConnected, reg_flag;
 ADI_BLER_CONN_INFO connInfo = {0};
 ADI_BLER_EVENT BleEvent;
 
@@ -75,7 +75,7 @@ struct FieldNamePacket name_pkt2 = {0x01, 2, "Z axis [G]"};
 struct DataPacket data_pkt = {0x02, 0, 0, 0, 0};
 
 adxl372_init_param adxl372_default_init_param = {
-	{GENERIC_SPI, 0, 10000000, SPI_MODE_0, ADI_SPI_CS1},    // spi_init
+	{GENERIC_SPI, 0, 8000000, SPI_MODE_0, ADI_SPI_CS1},    // spi_init
 	1, 2,                // gpio_int1, gpio_int2
 	ADXL372_BW_3200HZ,        // bw
 	ADXL372_ODR_6400HZ,        // odr
@@ -104,22 +104,22 @@ struct FieldNamePacket name_pkt2_full = {0x05, 2, "Z axis [G]"};
 struct DataPacket data_pkt_full = {0x06, 0, 0, 0, 0};
 
 adxl372_init_param adxl372_default_init_param = {
-	{GENERIC_SPI, 0, 10000000, SPI_MODE_0, ADI_SPI_CS1},    // spi_init
+	{GENERIC_SPI, 0, 5000000, SPI_MODE_0, ADI_SPI_CS1},    // spi_init
 	1, 2,                // gpio_int1, gpio_int2
 	ADXL372_BW_3200HZ,        // bw
 	ADXL372_ODR_6400HZ,        // odr
 	ADXL372_WUR_52ms,        // wur
 	ADXL372_LOOPED,        // act_proc_mode
 	ADXL372_INSTANT_ON_LOW_TH,    // th_mode
-	{30, true, true},        // activity_th
+	{80, false, true},        // activity_th
 	{0, false, false},        // activity2_th
-	{30, true, true},        // inactivity_th
-	0,                // activity_time
-	0,                // inactivity_time
+	{50, false, true},        // inactivity_th
+	1,                // activity_time
+	1,                // inactivity_time
 	ADXL372_FILTER_SETTLE_16,    // filter_settle
-	{ADXL372_FIFO_OLD_SAVED, ADXL372_XYZ_FIFO, 20},    // fifo_config
+	{ADXL372_FIFO_STREAMED, ADXL372_XYZ_FIFO, 80},    // fifo_config
 	/* data_rdy, fifo_rdy, fifo_full, fifo_ovr, inactivity, activity, awake, low_operation */
-	{false, false, false, false, false, false, true, true},
+	{false, false, false, false, true, false, false, true},
 	{false, false, false, false, false, false, false, false},
 	ADXL372_FULL_BW_MEASUREMENT,    // op_mode
 };
@@ -216,7 +216,7 @@ int main(int argc, char *argv[])
 	/*Enable external clock*/
 //	adxl372_spi_reg_write(adxl372, ADXL372_TIMING, 0x82);
 
-	/* clear interrupt after initialization and turn on LPF*/
+	/* clear interrupt after initialization and turn off LPF*/
 	adxl372_spi_reg_write(adxl372, ADXL372_POWER_CTL, 0x1F);
 	timer_sleep(50);
 	adxl372_get_status(adxl372, &status1, &status2, &fifo_entries);
@@ -227,9 +227,10 @@ int main(int argc, char *argv[])
 	AppPrintf("UART IOT drivers test\n\r");
 
 	/*Initialize RTC*/
-	adi_RTCInit();
+//	adi_RTCInit();
 
-	configure_ble_radio();
+	/*Initialize BLE*/
+//	configure_ble_radio();
 
 	while(1) {
 		/* BLE setup */
@@ -279,17 +280,20 @@ int main(int argc, char *argv[])
 
 		/* Measurement mode */
 		if (boInterruptFlag) {
+			boInterruptFlag = false;
+
+
+#ifdef PEAK_ACCELERATION
 			/*Read data from accelerometer*/
-			timer_sleep (100);
+			timer_sleep (10); // delay needs to be added so data have enough time to be popped into FIFO and Max Peak Register
 			adxl372_get_status(adxl372, &status1, &status2, &fifo_entries);
 			adxl372_get_highest_peak_data(adxl372, &max_peak);
-//			adxl372_xyz_accel_data fifo_sample[1] = {{0,0,0},{0,0,0}};
 			adxl372_get_fifo_xyz_data(adxl372, &fifo_samples, fifo_entries);
 
 			/*Print data over UART*/
 //			u32RTCTime = CURRENT_DATE_TIME + adi_GetRTCTime();
 
-#ifdef PEAK_ACCELERATION
+
 			data_pkt.Sensor_Data1.fValue =
 				(float)sign_extend16(max_peak.x) * 0.1; //100 mg/LSB
 			data_pkt.Sensor_Data2.fValue =
@@ -302,36 +306,22 @@ int main(int argc, char *argv[])
 				  data_pkt.Sensor_Data2.fValue,
 				  data_pkt.Sensor_Data3.fValue,
 				  fifo_entries);
-
+#else
+			/*Read data from accelerometer*/
+			timer_sleep (50);
+			adxl372_get_status(adxl372, &status1, &status2, &fifo_entries);
+			adxl372_get_fifo_xyz_data(adxl372, &fifo_samples, fifo_entries);
 
 #endif
-//			if (gConnected) {
-//				BleEvent = adi_radio_GetEvent();
-//
-//#ifdef PEAK_ACCELERATION
-//				eResult = adi_radio_DE_SendData(connInfo.nConnHandle,
-//								sizeof(data_pkt),(uint8_t*)&data_pkt);
-//				timer_sleep(10);
-//#else
-//
-//				send_fifo_data(fifo_samples, 40);
-//				adxl372_configure_fifo(adxl372,
-//						       ADXL372_FIFO_BYPASSED,
-//						       adxl372_default_init_param.fifo_config.fifo_format,
-//						       adxl372_default_init_param.fifo_config.fifo_samples);
-//#endif
-//			}
 
 			/*System workaround for Oldest saved mode */
 //			adxl372_configure_fifo(adxl372,
 //					       ADXL372_FIFO_OLD_SAVED,
 //					       adxl372_default_init_param.fifo_config.fifo_format,
 //					       adxl372_default_init_param.fifo_config.fifo_samples);
-
 //			adxl372_set_op_mode(adxl372, ADXL372_STANDBY);
 //			adxl372_set_op_mode(adxl372, ADXL372_FULL_BW_MEASUREMENT);
 
-			boInterruptFlag = false;
 			LowPwrExitFlag = 0;
 		}
 

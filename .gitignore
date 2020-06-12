@@ -1,2 +1,7 @@
 /.metadata/
 ADuCM3029_Asset_Health_Core0/Debug/ADuCM3029_Asset_Health_Core0
+ADuCM3029_Asset_Health_Core0/Debug/system/subdir.mk
+ADuCM3029_Asset_Health_Core0/Debug/system/pinmux/GeneratedSources/subdir.mk
+ADuCM3029_Asset_Health_Core0/Debug/src/subdir.mk
+ADuCM3029_Asset_Health_Core0/Debug/RTE/Device/ADuCM3029/subdir.mk
+ADuCM3029_Asset_Health_Core0/.cproject

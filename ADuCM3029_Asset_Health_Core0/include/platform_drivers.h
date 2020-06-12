@@ -140,7 +140,7 @@ int32_t spi_remove(spi_desc *desc);
 /* Write and read data to/from SPI. */
 int32_t spi_write_and_read(spi_desc *desc,
 			   uint8_t *data,
-			   uint8_t bytes_number);
+			   uint16_t bytes_number);
 
 /* Obtain the GPIO decriptor. */
 int32_t gpio_get(gpio_desc **desc,
