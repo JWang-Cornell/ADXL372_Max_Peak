@@ -280,12 +280,10 @@ int main(int argc, char *argv[])
 
 		/* Measurement mode */
 		if (boInterruptFlag) {
-			boInterruptFlag = false;
-
 
 #ifdef PEAK_ACCELERATION
 			/*Read data from accelerometer*/
-			timer_sleep (10); // delay needs to be added so data have enough time to be popped into FIFO and Max Peak Register
+			timer_sleep (100); // delay needs to be added so data have enough time to be popped into FIFO and Max Peak Register
 			adxl372_get_status(adxl372, &status1, &status2, &fifo_entries);
 			adxl372_get_highest_peak_data(adxl372, &max_peak);
 			adxl372_get_fifo_xyz_data(adxl372, &fifo_samples, fifo_entries);
@@ -322,6 +320,7 @@ int main(int argc, char *argv[])
 //			adxl372_set_op_mode(adxl372, ADXL372_STANDBY);
 //			adxl372_set_op_mode(adxl372, ADXL372_FULL_BW_MEASUREMENT);
 
+			boInterruptFlag = false;
 			LowPwrExitFlag = 0;
 		}
 
